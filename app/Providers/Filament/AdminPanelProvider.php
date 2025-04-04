@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\MyProfilePage;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
@@ -62,17 +63,19 @@ class AdminPanelProvider extends PanelProvider
             ->plugin(\A21ns1g4ts\FilamentShortUrl\FilamentShortUrlPlugin::make())
             ->plugin(FilamentOopsPlugin::make())
             ->plugin(\TomatoPHP\FilamentLanguageSwitcher\FilamentLanguageSwitcherPlugin::make())
+            ->plugin(\TomatoPHP\FilamentArtisan\FilamentArtisanPlugin::make())
+            ->plugin(\TomatoPHP\FilamentTranslations\FilamentTranslationsPlugin::make()->allowCreate())
+            ->plugin(\TomatoPHP\FilamentDeveloperGate\FilamentDeveloperGatePlugin::make())
             ->plugin(
                 BreezyCore::make()
                     ->myProfile(
                         shouldRegisterUserMenu: true,
                         shouldRegisterNavigation: true,
                         hasAvatars: true,
-                        navigationGroup: __('Settings'),
-                        userMenuLabel: __('My Profile'),
                     )
+                    ->customMyProfilePage(MyProfilePage::class)
                     ->enableTwoFactorAuthentication()
-                    ->avatarUploadComponent(fn () => SpatieMediaLibraryFileUpload::make("avatar")->collection("avatar")->avatar()->imageEditor())
+                    ->avatarUploadComponent(fn() => SpatieMediaLibraryFileUpload::make("avatar")->collection("avatar")->avatar()->imageEditor())
             )
             ->authMiddleware([
                 Authenticate::class,

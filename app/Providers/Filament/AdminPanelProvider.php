@@ -2,7 +2,9 @@
 
 namespace App\Providers\Filament;
 
+use A21ns1g4ts\FilamentShortUrl\FilamentShortUrlPlugin;
 use App\Filament\Pages\MyProfilePage;
+use BezhanSalleh\FilamentExceptions\FilamentExceptionsPlugin;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
@@ -22,6 +24,11 @@ use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Jeffgreco13\FilamentBreezy\BreezyCore;
 use Saasykit\FilamentOops\FilamentOopsPlugin;
 use ShuvroRoy\FilamentSpatieLaravelHealth\FilamentSpatieLaravelHealthPlugin;
+use TomatoPHP\FilamentArtisan\FilamentArtisanPlugin;
+use TomatoPHP\FilamentDeveloperGate\FilamentDeveloperGatePlugin;
+use TomatoPHP\FilamentLanguageSwitcher\FilamentLanguageSwitcherPlugin;
+use TomatoPHP\FilamentTranslations\FilamentTranslationsPlugin;
+use TomatoPHP\FilamentUsers\FilamentUsersPlugin;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -37,9 +44,6 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
-            ->pages([
-                Pages\Dashboard::class,
-            ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
                 Widgets\AccountWidget::class,
@@ -56,16 +60,15 @@ class AdminPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
             ])
-            ->plugin(\BezhanSalleh\FilamentExceptions\FilamentExceptionsPlugin::make())
-            ->plugin(\TomatoPHP\FilamentMediaManager\FilamentMediaManagerPlugin::make())
+            ->plugin(FilamentExceptionsPlugin::make())
             ->plugin(FilamentSpatieLaravelHealthPlugin::make())
-            ->plugin(\TomatoPHP\FilamentUsers\FilamentUsersPlugin::make())
-            ->plugin(\A21ns1g4ts\FilamentShortUrl\FilamentShortUrlPlugin::make())
+            ->plugin(FilamentUsersPlugin::make())
+            ->plugin(FilamentShortUrlPlugin::make())
             ->plugin(FilamentOopsPlugin::make())
-            ->plugin(\TomatoPHP\FilamentLanguageSwitcher\FilamentLanguageSwitcherPlugin::make())
-            ->plugin(\TomatoPHP\FilamentArtisan\FilamentArtisanPlugin::make())
-            ->plugin(\TomatoPHP\FilamentTranslations\FilamentTranslationsPlugin::make()->allowCreate())
-            ->plugin(\TomatoPHP\FilamentDeveloperGate\FilamentDeveloperGatePlugin::make())
+            ->plugin(FilamentLanguageSwitcherPlugin::make())
+            ->plugin(FilamentArtisanPlugin::make())
+            ->plugin(FilamentTranslationsPlugin::make()->allowCreate())
+            ->plugin(FilamentDeveloperGatePlugin::make())
             ->plugin(
                 BreezyCore::make()
                     ->myProfile(
@@ -74,7 +77,7 @@ class AdminPanelProvider extends PanelProvider
                         hasAvatars: true,
                     )
                     ->customMyProfilePage(MyProfilePage::class)
-                    ->enableTwoFactorAuthentication()
+                    ->enableTwoFactorAuthentication(false)
                     ->avatarUploadComponent(fn() => SpatieMediaLibraryFileUpload::make("avatar")->collection("avatar")->avatar()->imageEditor())
             )
             ->authMiddleware([

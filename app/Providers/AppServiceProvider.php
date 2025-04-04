@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use F9Web\Health\Checks\OpCacheCheck;
+use Filament\Forms\Components\Select;
 use Illuminate\Support\ServiceProvider;
 use Jeffgreco13\FilamentBreezy\BreezyCore;
 use Spatie\CpuLoadHealthCheck\CpuLoadCheck;
@@ -53,5 +54,9 @@ class AppServiceProvider extends ServiceProvider
             OpCacheCheck::new(),
             SecurityAdvisoriesCheck::new(),
         ]);
+
+        Select::configureUsing(function ($select){
+            $select->native(false);
+        });
     }
 }

@@ -23,4 +23,15 @@ class Category extends Model implements HasMedia
     {
         return $this->hasMany(Post::class, 'category_id');
     }
+
+    public function registerMediaCollections(): void
+    {
+        $fallbackText = 'C';
+        if (!empty($this->name)) {
+            $fallbackText = preg_replace('/\b(\w)/', '$1', ucwords($this->name));
+            $fallbackText = preg_replace('/[^A-Z]/', '', $fallbackText);
+        }
+
+        $this->addMediaCollection('banner')->useFallbackUrl("https://placehold.co/700x400?text=" . $fallbackText);
+    }
 }

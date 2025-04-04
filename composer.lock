@@ -4,84 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2b9c4311c1f8fc0f6edfa18649680fc4",
+    "content-hash": "88f45311daa5b353c04a3aff91e3bf3a",
     "packages": [
-        {
-            "name": "a21ns1g4ts/filament-short-url",
-            "version": "v0.1.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/a21ns1g4ts/filament-short-url.git",
-                "reference": "11b8ba2fbd494c0cdc84e768ddfb6c05a1aa1ede"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/a21ns1g4ts/filament-short-url/zipball/11b8ba2fbd494c0cdc84e768ddfb6c05a1aa1ede",
-                "reference": "11b8ba2fbd494c0cdc84e768ddfb6c05a1aa1ede",
-                "shasum": ""
-            },
-            "require": {
-                "ashallendesign/short-url": "^8.1",
-                "bacon/bacon-qr-code": "^3.0",
-                "filament/filament": "^3.2",
-                "php": "^8.1",
-                "spatie/laravel-package-tools": "^1.15.0"
-            },
-            "require-dev": {
-                "laravel/pint": "^1.14",
-                "nunomaduro/collision": "^8.1.1",
-                "orchestra/testbench": "^9.0.0",
-                "pestphp/pest": "^2.34",
-                "pestphp/pest-plugin-arch": "^2.7",
-                "pestphp/pest-plugin-laravel": "^2.3"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "aliases": {
-                        "FilamentShortUrl": "A21ns1g4ts\\FilamentShortUrl\\Facades\\FilamentShortUrl"
-                    },
-                    "providers": [
-                        "A21ns1g4ts\\FilamentShortUrl\\FilamentShortUrlServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "A21ns1g4ts\\FilamentShortUrl\\": "src/",
-                    "A21ns1g4ts\\FilamentShortUrl\\Database\\Factories\\": "database/factories/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "a21ns1g4ts",
-                    "email": "atila.danvi@outlook.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "This is my package filament-short-url",
-            "homepage": "https://github.com/a21ns1g4ts/filament-short-url",
-            "keywords": [
-                "a21ns1g4ts",
-                "filament-short-url",
-                "laravel"
-            ],
-            "support": {
-                "issues": "https://github.com/a21ns1g4ts/filament-short-url/issues",
-                "source": "https://github.com/a21ns1g4ts/filament-short-url"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/a21ns1g4ts",
-                    "type": "github"
-                }
-            ],
-            "time": "2025-02-06T23:07:23+00:00"
-        },
         {
             "name": "anourvalar/eloquent-serialize",
             "version": "1.3.0",
@@ -147,158 +71,6 @@
                 "source": "https://github.com/AnourValar/eloquent-serialize/tree/1.3.0"
             },
             "time": "2025-03-22T08:49:12+00:00"
-        },
-        {
-            "name": "ashallendesign/laravel-config-validator",
-            "version": "v2.8.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ash-jc-allen/laravel-config-validator.git",
-                "reference": "8704ddcab0131df44b877dfba19cb73affa95462"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ash-jc-allen/laravel-config-validator/zipball/8704ddcab0131df44b877dfba19cb73affa95462",
-                "reference": "8704ddcab0131df44b877dfba19cb73affa95462",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "illuminate/console": "^10.0|^11.0|^12.0",
-                "illuminate/container": "^10.0|^11.0|^12.0",
-                "illuminate/validation": "^10.0|^11.0|^12.0",
-                "illuminate/view": "^10.0|^11.0|^12.0",
-                "nunomaduro/termwind": "^1.6|^2.0",
-                "php": "^8.2"
-            },
-            "require-dev": {
-                "larastan/larastan": "^1.0|^2.0|^3.0",
-                "mockery/mockery": "^1.0",
-                "orchestra/testbench": "^8.0|^9.0|^10.0",
-                "phpunit/phpunit": "^9.0|^10.5|^11.5.3"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "aliases": {
-                        "ConfigValidator": "AshAllenDesign\\ConfigValidator\\Facades\\ConfigValidator"
-                    },
-                    "providers": [
-                        "AshAllenDesign\\ConfigValidator\\Providers\\ConfigValidatorProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "AshAllenDesign\\ConfigValidator\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Ash Allen",
-                    "email": "mail@ashallendesign.co.uk"
-                }
-            ],
-            "description": "A package for validating your Laravel app's config.",
-            "homepage": "https://github.com/ash-jc-allen/laravel-config-validator",
-            "keywords": [
-                "ashallendesign",
-                "config",
-                "laravel",
-                "validation"
-            ],
-            "support": {
-                "issues": "https://github.com/ash-jc-allen/laravel-config-validator/issues",
-                "source": "https://github.com/ash-jc-allen/laravel-config-validator/tree/v2.8.0"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/ash-jc-allen",
-                    "type": "github"
-                }
-            ],
-            "time": "2025-02-24T20:37:20+00:00"
-        },
-        {
-            "name": "ashallendesign/short-url",
-            "version": "v8.3.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ash-jc-allen/short-url.git",
-                "reference": "d150b4df603fcf16706e2905b81ce8487b3a0821"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ash-jc-allen/short-url/zipball/d150b4df603fcf16706e2905b81ce8487b3a0821",
-                "reference": "d150b4df603fcf16706e2905b81ce8487b3a0821",
-                "shasum": ""
-            },
-            "require": {
-                "ashallendesign/laravel-config-validator": "^2.6.1",
-                "hashids/hashids": "^4.0|^5.0",
-                "illuminate/container": "^10.0|^11.0|^12.0",
-                "illuminate/database": "^10.0|^11.0|^12.0",
-                "nesbot/carbon": "^2.0|^3.0",
-                "php": "^8.1",
-                "whichbrowser/parser": "^2.1"
-            },
-            "require-dev": {
-                "larastan/larastan": "^2.0|^3.0",
-                "mockery/mockery": "^1.0",
-                "orchestra/testbench": "^8.0|^9.0|^10.0",
-                "pestphp/pest-plugin-laravel": "^2.3|^3.0",
-                "phpunit/phpunit": "^10.0|^11.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "aliases": {
-                        "ShortURL": "AshAllenDesign\\ShortURL\\Facades\\ShortURL"
-                    },
-                    "providers": [
-                        "AshAllenDesign\\ShortURL\\Providers\\ShortURLProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "AshAllenDesign\\ShortURL\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Ash Allen",
-                    "email": "mail@ashallendesign.co.uk"
-                }
-            ],
-            "description": "A Laravel package for creating shortened URLs for your web apps.",
-            "homepage": "https://github.com/ash-jc-allen/short-url",
-            "keywords": [
-                "URL-Shortener",
-                "ashallendesign",
-                "laravel",
-                "laravel-package",
-                "short-urls"
-            ],
-            "support": {
-                "issues": "https://github.com/ash-jc-allen/short-url/issues",
-                "source": "https://github.com/ash-jc-allen/short-url/tree/v8.3.0"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/ash-jc-allen",
-                    "type": "github"
-                }
-            ],
-            "time": "2025-02-24T21:32:04+00:00"
         },
         {
             "name": "bacon/bacon-qr-code",
@@ -727,6 +499,60 @@
                 }
             ],
             "time": "2025-02-28T13:11:00+00:00"
+        },
+        {
+            "name": "calebporzio/sushi",
+            "version": "v2.5.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/calebporzio/sushi.git",
+                "reference": "bf184973f943216b2aaa8dbc79631ea806038bb1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/calebporzio/sushi/zipball/bf184973f943216b2aaa8dbc79631ea806038bb1",
+                "reference": "bf184973f943216b2aaa8dbc79631ea806038bb1",
+                "shasum": ""
+            },
+            "require": {
+                "ext-pdo_sqlite": "*",
+                "ext-sqlite3": "*",
+                "illuminate/database": "^5.8 || ^6.0 || ^7.0 || ^8.0 || ^9.0 || ^10.0 || ^11.0 || ^12.0",
+                "illuminate/support": "^5.8 || ^6.0 || ^7.0 || ^8.0 || ^9.0 || ^10.0 || ^11.0 || ^12.0",
+                "php": "^7.1.3|^8.0"
+            },
+            "require-dev": {
+                "doctrine/dbal": "^2.9 || ^3.1.4",
+                "orchestra/testbench": "3.8.* || 3.9.* || ^4.0 || ^5.0 || ^6.0 || ^7.0 || ^8.0 || ^9.0 || ^10.0",
+                "phpunit/phpunit": "^7.5 || ^8.4 || ^9.0 || ^10.0 || ^11.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Sushi\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Caleb Porzio",
+                    "email": "calebporzio@gmail.com"
+                }
+            ],
+            "description": "Eloquent's missing \"array\" driver.",
+            "support": {
+                "source": "https://github.com/calebporzio/sushi/tree/v2.5.3"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/calebporzio",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-02-13T21:03:57+00:00"
         },
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -2849,75 +2675,6 @@
                 }
             ],
             "time": "2025-02-03T10:55:03+00:00"
-        },
-        {
-            "name": "hashids/hashids",
-            "version": "5.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/vinkla/hashids.git",
-                "reference": "197171016b77ddf14e259e186559152eb3f8cf33"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/vinkla/hashids/zipball/197171016b77ddf14e259e186559152eb3f8cf33",
-                "reference": "197171016b77ddf14e259e186559152eb3f8cf33",
-                "shasum": ""
-            },
-            "require": {
-                "ext-mbstring": "*",
-                "php": "^8.1"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^10.0"
-            },
-            "suggest": {
-                "ext-bcmath": "Required to use BC Math arbitrary precision mathematics (*).",
-                "ext-gmp": "Required to use GNU multiple precision mathematics (*)."
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "5.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Hashids\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Ivan Akimov",
-                    "email": "ivan@barreleye.com"
-                },
-                {
-                    "name": "Vincent Klaiber",
-                    "email": "hello@doubledip.se"
-                }
-            ],
-            "description": "Generate short, unique, non-sequential ids (like YouTube and Bitly) from numbers",
-            "homepage": "https://hashids.org/php",
-            "keywords": [
-                "bitly",
-                "decode",
-                "encode",
-                "hash",
-                "hashid",
-                "hashids",
-                "ids",
-                "obfuscate",
-                "youtube"
-            ],
-            "support": {
-                "issues": "https://github.com/vinkla/hashids/issues",
-                "source": "https://github.com/vinkla/hashids/tree/5.0.2"
-            },
-            "time": "2023-02-23T15:00:54+00:00"
         },
         {
             "name": "jeffgreco13/filament-breezy",
@@ -5163,6 +4920,66 @@
                 }
             ],
             "time": "2025-01-30T13:51:11+00:00"
+        },
+        {
+            "name": "owenvoke/blade-fontawesome",
+            "version": "v2.9.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/owenvoke/blade-fontawesome.git",
+                "reference": "94dcd0c78f43f8234b0d9c76c903ecd288b8b0d1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/owenvoke/blade-fontawesome/zipball/94dcd0c78f43f8234b0d9c76c903ecd288b8b0d1",
+                "reference": "94dcd0c78f43f8234b0d9c76c903ecd288b8b0d1",
+                "shasum": ""
+            },
+            "require": {
+                "blade-ui-kit/blade-icons": "^1.5",
+                "illuminate/support": "^10.34|^11.0|^12.0",
+                "php": "^8.1"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.13",
+                "orchestra/testbench": "^8.12|^9.0|^10.0",
+                "pestphp/pest": "^2.26|^3.7",
+                "phpstan/phpstan": "^1.10|^2.1",
+                "symfony/var-dumper": "^6.3|^7.2"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "OwenVoke\\BladeFontAwesome\\BladeFontAwesomeServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "OwenVoke\\BladeFontAwesome\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A package to easily make use of Font Awesome in your Laravel Blade views",
+            "support": {
+                "issues": "https://github.com/owenvoke/blade-fontawesome/issues",
+                "source": "https://github.com/owenvoke/blade-fontawesome/tree/v2.9.1"
+            },
+            "funding": [
+                {
+                    "url": "https://ecologi.com/owenvoke?gift-trees",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/owenvoke",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-03-28T16:03:42+00:00"
         },
         {
             "name": "paragonie/constant_time_encoding",
@@ -10655,20 +10472,87 @@
             "time": "2023-02-12T12:00:38+00:00"
         },
         {
-            "name": "tomatophp/filament-artisan",
-            "version": "v1.0.1",
+            "name": "tomatophp/filament-api",
+            "version": "v1.0.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/tomatophp/filament-artisan.git",
-                "reference": "47f62405d961278def6e2fdde605bf4e843f4f25"
+                "url": "https://github.com/tomatophp/filament-api.git",
+                "reference": "d65c65881bf9a1a41321ea998b906ae039fc50ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tomatophp/filament-artisan/zipball/47f62405d961278def6e2fdde605bf4e843f4f25",
-                "reference": "47f62405d961278def6e2fdde605bf4e843f4f25",
+                "url": "https://api.github.com/repos/tomatophp/filament-api/zipball/d65c65881bf9a1a41321ea998b906ae039fc50ee",
+                "reference": "d65c65881bf9a1a41321ea998b906ae039fc50ee",
                 "shasum": ""
             },
             "require": {
+                "calebporzio/sushi": "*",
+                "filament/filament": "^3.0.0",
+                "php": "^8.1|^8.2",
+                "tomatophp/console-helpers": "^1.1"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "TomatoPHP\\FilamentApi\\FilamentApiServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "TomatoPHP\\FilamentApi\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fady Mondy",
+                    "email": "info@3x1.io"
+                }
+            ],
+            "description": "Generate APIs from your filament resource using single line of code",
+            "keywords": [
+                "api",
+                "filament-plugin",
+                "filamentphp",
+                "generator",
+                "laravel",
+                "php",
+                "rest",
+                "tomatophp"
+            ],
+            "support": {
+                "issues": "https://github.com/tomatophp/filament-api/issues",
+                "source": "https://github.com/tomatophp/filament-api/tree/v1.0.2"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/3x1io",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-09-23T15:37:54+00:00"
+        },
+        {
+            "name": "tomatophp/filament-artisan",
+            "version": "v1.1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tomatophp/filament-artisan.git",
+                "reference": "530c26678a987c2117db9bee8be36e7af4ff0513"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tomatophp/filament-artisan/zipball/530c26678a987c2117db9bee8be36e7af4ff0513",
+                "reference": "530c26678a987c2117db9bee8be36e7af4ff0513",
+                "shasum": ""
+            },
+            "require": {
+                "calebporzio/sushi": "*",
                 "filament/filament": "^3.0.0",
                 "php": "^8.1|^8.2",
                 "tomatophp/console-helpers": "^1.1",
@@ -10697,7 +10581,7 @@
                     "email": "info@3x1.io"
                 }
             ],
-            "description": "Simple but yet powerful library for running some artisan commands. this packages is a fork of artisan-gui with some custom for filament UI",
+            "description": "Simple but yet powerful library for running some artisan commands for FilamentPHP",
             "keywords": [
                 "artisan",
                 "commands",
@@ -10708,7 +10592,7 @@
             ],
             "support": {
                 "issues": "https://github.com/tomatophp/filament-artisan/issues",
-                "source": "https://github.com/tomatophp/filament-artisan/tree/v1.0.1"
+                "source": "https://github.com/tomatophp/filament-artisan/tree/v1.1.4"
             },
             "funding": [
                 {
@@ -10716,7 +10600,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-06-24T15:12:12+00:00"
+            "time": "2024-09-17T16:34:42+00:00"
         },
         {
             "name": "tomatophp/filament-developer-gate",
@@ -11302,69 +11186,6 @@
                 "source": "https://github.com/webmozarts/assert/tree/1.11.0"
             },
             "time": "2022-06-03T18:03:27+00:00"
-        },
-        {
-            "name": "whichbrowser/parser",
-            "version": "v2.1.8",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/WhichBrowser/Parser-PHP.git",
-                "reference": "581d614d686bfbec3529ad60562a5213ac5d8d72"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/WhichBrowser/Parser-PHP/zipball/581d614d686bfbec3529ad60562a5213ac5d8d72",
-                "reference": "581d614d686bfbec3529ad60562a5213ac5d8d72",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4.0",
-                "psr/cache": "^1.0 || ^2.0 || ^3.0"
-            },
-            "require-dev": {
-                "cache/array-adapter": "^1.1",
-                "icomefromthenet/reverse-regex": "0.0.6.3",
-                "php-coveralls/php-coveralls": "^2.0",
-                "phpunit/php-code-coverage": "^5.0 || ^7.0",
-                "phpunit/phpunit": "^6.0 || ^8.0",
-                "squizlabs/php_codesniffer": "^3.5",
-                "symfony/yaml": "~3.4 || ~4.0"
-            },
-            "suggest": {
-                "cache/array-adapter": "Allows testing of the caching functionality"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "WhichBrowser\\": [
-                        "src/"
-                    ]
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Niels Leenheer",
-                    "email": "niels@leenheer.nl",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Useragent sniffing library for PHP",
-            "homepage": "http://whichbrowser.net",
-            "keywords": [
-                "browser",
-                "sniffing",
-                "ua",
-                "useragent"
-            ],
-            "support": {
-                "issues": "https://github.com/WhichBrowser/Parser-PHP/issues",
-                "source": "https://github.com/WhichBrowser/Parser-PHP/tree/v2.1.8"
-            },
-            "time": "2024-04-17T12:47:41+00:00"
         }
     ],
     "packages-dev": [

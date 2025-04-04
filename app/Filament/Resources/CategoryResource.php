@@ -5,14 +5,19 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\CategoryResource\Pages;
 use App\Filament\Resources\CategoryResource\RelationManagers;
 use App\Models\Category;
+use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use Filament\Forms\Components\SpatieTagsInput;
 use Filament\Forms\Form;
 use Filament\Infolists\Components\SpatieMediaLibraryImageEntry;
+use Filament\Infolists\Components\SpatieTagsEntry;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
+use Illuminate\Database\Eloquent\Model;
 use Schmeits\FilamentCharacterCounter\Forms\Components\RichEditor;
 use Schmeits\FilamentCharacterCounter\Forms\Components\TextInput;
 use Schmeits\FilamentCharacterCounter\Forms\Components\Textarea;
@@ -43,22 +48,31 @@ class CategoryResource extends Resource
         return $form
             ->schema([
                 Section::make([
-                    TextInput::make('name')
-                        ->required()
-                        ->characterLimit(255)
-                        ->label('Category Name'),
+                    Group::make([
+                        TextInput::make('name')
+                            ->required()
+                            ->characterLimit(255)
+                            ->label('Category Name'),
 
-                    Textarea::make('short_description')
-                        ->maxLength(500)
-                        ->label('Short Description'),
+                        Textarea::make('short_description')
+                            ->maxLength(500)
+                            ->label('Short Description'),
+                    ]),
+
+                    Group::make([
+                        SpatieMediaLibraryFileUpload::make("banner")
+                            ->collection("banner")
+                            ->label('Banner Image'),
+
+                        SpatieTagsInput::make("tags"),
+                    ]),
 
                     RichEditor::make('description')
                         ->required()
-                        ->label('Detailed Description'),
+                        ->label('Detailed Description')
+                        ->columnSpanFull(),
 
-                    SpatieMediaLibraryFileUpload::make("banner")
-                        ->collection("banner")
-                        ->label('Banner Image'),
+
                 ])->columns(2),
             ]);
     }
@@ -67,9 +81,19 @@ class CategoryResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')->label('Category Name'),
-                Tables\Columns\TextColumn::make('short_description')->label('Short Description'),
-                Tables\Columns\SpatieMediaLibraryImageColumn::make("banner")->collection("banner")->label('Banner'),
+                Tables\Columns\TextColumn::make('name')
+                    ->label('Category Name')
+                    ->description(function (Model $record): ?string {
+                        $words = explode(' ', $record->short_description);
+                        $shortened = implode(' ', array_slice($words, 0, 10));
+                        return count($words) > 10 ? $shortened . '...' : $shortened;
+                    })
+                    ->tooltip(function (Model $record): ?string {
+                        return count(explode(' ', $record->short_description)) <= 10 ? null : $record->short_description;
+                    }),
+                Tables\Columns\SpatieMediaLibraryImageColumn::make("banner")
+                    ->collection("banner")
+                    ->label('Banner'),
                 Tables\Columns\TextColumn::make("created_at")->label('Created At'),
             ])
             ->filters([
@@ -122,8 +146,14 @@ class CategoryResource extends Resource
                     ->collection('banner')
                     ->label('Banner Image'),
 
+                SpatieTagsEntry::make("tags"),
+
                 TextEntry::make('created_at')
                     ->label('Created At')
+                    ->dateTime(),
+
+                TextEntry::make('updated_at')
+                    ->label('Last update at')
                     ->dateTime(),
             ]);
     }

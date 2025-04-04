@@ -10,6 +10,8 @@ use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\NavigationGroup;
+use Filament\Navigation\NavigationItem;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -63,7 +65,6 @@ class AdminPanelProvider extends PanelProvider
             ->plugin(FilamentExceptionsPlugin::make())
             ->plugin(FilamentSpatieLaravelHealthPlugin::make())
             ->plugin(FilamentUsersPlugin::make())
-            ->plugin(FilamentShortUrlPlugin::make())
             ->plugin(FilamentOopsPlugin::make())
             ->plugin(FilamentLanguageSwitcherPlugin::make())
             ->plugin(FilamentArtisanPlugin::make())
@@ -84,6 +85,11 @@ class AdminPanelProvider extends PanelProvider
                 Authenticate::class,
             ])
             ->bootUsing(function () {
-            });
+            })
+            ->navigationGroups([
+                NavigationGroup::make(__("Home")),
+                NavigationGroup::make(__("Content")),
+                NavigationGroup::make(__("Settings")),
+            ]);
     }
 }

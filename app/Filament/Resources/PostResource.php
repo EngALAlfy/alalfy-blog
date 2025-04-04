@@ -9,6 +9,7 @@ use App\Filament\Resources\PostResource\Pages;
 use App\Models\Post;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Infolists\Components\SpatieTagsEntry;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -16,13 +17,9 @@ use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Components\SpatieMediaLibraryImageEntry;
 use Filament\Infolists\Infolist;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
-use Filament\Forms\Components\RichEditor;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Textarea;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Database\Eloquent\Model;
 
 class PostResource extends Resource
 {
@@ -50,34 +47,43 @@ class PostResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Section::make([
-                    \Schmeits\FilamentCharacterCounter\Forms\Components\TextInput::make('title')
-                        ->required()
-                        ->maxLength(255)
-                        ->label('Title'),
+                    Forms\Components\Group::make([
+                        \Schmeits\FilamentCharacterCounter\Forms\Components\TextInput::make('title')
+                            ->required()
+                            ->maxLength(255)
+                            ->label('Title'),
 
-                    \Schmeits\FilamentCharacterCounter\Forms\Components\Textarea::make('short_description')
-                        ->maxLength(500)
-                        ->label('Short Description'),
+                        \Schmeits\FilamentCharacterCounter\Forms\Components\Textarea::make('short_description')
+                            ->maxLength(500)
+                            ->label('Short Description'),
 
-                    \Schmeits\FilamentCharacterCounter\Forms\Components\RichEditor::make('description')
-                        ->required()
-                        ->label('Description'),
+                        Forms\Components\Select::make('status')
+                            ->required()
+                            ->options(PostStatusEnum::class)
+                            ->label('Status'),
 
-                    Forms\Components\Select::make('status')
-                        ->required()
-                        ->options(PostStatusEnum::class)
-                        ->label('Status'),
+                        Forms\Components\Select::make('category_id')
+                            ->required()
+                            ->relationship("category", "name")
+                            ->searchable()
+                            ->preload()
+                            ->label('Category'),
 
-                    Forms\Components\Select::make('category_id')
-                        ->required()
-                        ->relationship("category", "name")
-                        ->searchable()
-                        ->preload()
-                        ->label('Category'),
+                        Forms\Components\SpatieTagsInput::make("tags"),
+                    ]),
 
-                    SpatieMediaLibraryFileUpload::make("banner")
-                        ->collection("banner")
-                        ->label('Banner Image'),
+                    Forms\Components\Group::make([
+
+                        SpatieMediaLibraryFileUpload::make("banner")
+                            ->collection("banner")
+                            ->label('Banner Image'),
+
+                        \Schmeits\FilamentCharacterCounter\Forms\Components\RichEditor::make('description')
+                            ->required()
+                            ->label('Description'),
+
+                    ]),
+
                 ])->columns(2),
             ]);
     }
@@ -86,10 +92,16 @@ class PostResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('title')->label('Title'),
-                TextColumn::make('short_description')->label('Short Description'),
+                TextColumn::make('title')->label('Title')
+                    ->description(function (Model $record): ?string {
+                        $words = explode(' ', $record->short_description);
+                        $shortened = implode(' ', array_slice($words, 0, 10));
+                        return count($words) > 10 ? $shortened . '...' : $shortened;
+                    })
+                    ->tooltip(function (Model $record): ?string {
+                        return count(explode(' ', $record->short_description)) <= 10 ? null : $record->short_description;
+                    }),
                 TextColumn::make('status')->label('Status')->badge(),
-                TextColumn::make('status_at')->label('Status At')->dateTime(),
                 TextColumn::make('author.name')->label('Author'),
                 TextColumn::make('category.name')->label('Category'),
                 SpatieMediaLibraryImageColumn::make("banner")->collection("banner")->label('Banner'),
@@ -136,6 +148,7 @@ class PostResource extends Resource
                 TextEntry::make('title')->label('Title'),
                 TextEntry::make('short_description')->label('Short Description'),
                 TextEntry::make('description')->label('Description')->html(),
+                SpatieTagsEntry::make('tags'),
                 TextEntry::make('status')->label('Status')->badge(),
                 TextEntry::make('status_at')->label('Status At')->dateTime(),
                 TextEntry::make('author.name')->label('Author'),

@@ -41,4 +41,15 @@ class Post extends Model implements HasMedia
             'status' => PostStatusEnum::class,
         ];
     }
+
+    public function registerMediaCollections(): void
+    {
+        $fallbackText = 'P';
+        if (!empty($this->name)) {
+            $fallbackText = preg_replace('/\b(\w)/', '$1', ucwords($this->name));
+            $fallbackText = preg_replace('/[^A-Z]/', '', $fallbackText);
+        }
+
+        $this->addMediaCollection('banner')->useFallbackUrl("https://placehold.co/700x400?text=" . $fallbackText);
+    }
 }

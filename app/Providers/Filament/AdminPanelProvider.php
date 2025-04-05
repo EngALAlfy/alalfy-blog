@@ -2,17 +2,15 @@
 
 namespace App\Providers\Filament;
 
-use A21ns1g4ts\FilamentShortUrl\FilamentShortUrlPlugin;
 use App\Filament\Pages\MyProfilePage;
 use BezhanSalleh\FilamentExceptions\FilamentExceptionsPlugin;
+use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Navigation\NavigationGroup;
-use Filament\Navigation\NavigationItem;
-use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
@@ -70,6 +68,7 @@ class AdminPanelProvider extends PanelProvider
             ->plugin(FilamentArtisanPlugin::make())
             ->plugin(FilamentTranslationsPlugin::make()->allowCreate())
             ->plugin(FilamentDeveloperGatePlugin::make())
+            ->plugin(FilamentShieldPlugin::make())
             ->plugin(
                 BreezyCore::make()
                     ->myProfile(

@@ -21,5 +21,7 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
+error_log
+/public/storage/
 
 .qodo

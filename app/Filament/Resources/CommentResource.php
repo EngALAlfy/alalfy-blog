@@ -21,6 +21,7 @@ class CommentResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-chat-bubble-left-right';
 
+    protected static ?int $navigationSort = 3;
 
     public static function getNavigationGroup(): ?string
     {

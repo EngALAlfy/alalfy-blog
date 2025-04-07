@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\PostStatusEnum;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Tags\HasTags;
@@ -51,5 +52,10 @@ class Post extends Model implements HasMedia
         }
 
         $this->addMediaCollection('banner')->useFallbackUrl("https://placehold.co/700x400?text=" . $fallbackText);
+    }
+
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
     }
 }

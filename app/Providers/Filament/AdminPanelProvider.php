@@ -24,6 +24,7 @@ use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Jeffgreco13\FilamentBreezy\BreezyCore;
 use Saasykit\FilamentOops\FilamentOopsPlugin;
 use ShuvroRoy\FilamentSpatieLaravelHealth\FilamentSpatieLaravelHealthPlugin;
+use TomatoPHP\FilamentApi\FilamentAPIPlugin;
 use TomatoPHP\FilamentArtisan\FilamentArtisanPlugin;
 use TomatoPHP\FilamentDeveloperGate\FilamentDeveloperGatePlugin;
 use TomatoPHP\FilamentLanguageSwitcher\FilamentLanguageSwitcherPlugin;
@@ -69,6 +70,7 @@ class AdminPanelProvider extends PanelProvider
             ->plugin(FilamentTranslationsPlugin::make()->allowCreate())
             ->plugin(FilamentDeveloperGatePlugin::make())
             ->plugin(FilamentShieldPlugin::make())
+            ->plugin(FilamentAPIPlugin::make())
             ->plugin(
                 BreezyCore::make()
                     ->myProfile(

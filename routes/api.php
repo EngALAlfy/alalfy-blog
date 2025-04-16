@@ -13,3 +13,4 @@ Route::get('/categories/home', [CategoriesController::class , 'home']);
 Route::get('/categories/footer', [CategoriesController::class , 'footer']);
 Route::get('/categories/header', [CategoriesController::class , 'header']);
 Route::get('/categories/all', [CategoriesController::class , 'all']);
+Route::get('/categories/{category:slug}', [CategoriesController::class , 'show']);

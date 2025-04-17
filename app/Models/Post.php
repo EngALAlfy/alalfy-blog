@@ -48,8 +48,8 @@ class Post extends Model implements HasMedia
     public function registerMediaCollections(): void
     {
         $fallbackText = 'P';
-        if (!empty($this->name)) {
-            $fallbackText = preg_replace('/\b(\w)/', '$1', ucwords($this->name));
+        if (!empty($this->title)) {
+            $fallbackText = preg_replace('/\b(\w)/', '$1', ucwords($this->title));
             $fallbackText = preg_replace('/[^A-Z]/', '', $fallbackText);
         }
 

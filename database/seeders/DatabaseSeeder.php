@@ -22,5 +22,12 @@ class DatabaseSeeder extends Seeder
             $category->slug = Str::slug($category->name);
             $category->save();
         }
+
+        $posts = Post::cursor();
+
+        foreach ($posts as $post) {
+            $post->slug = Str::slug($post->name);
+            $post->save();
+        }
     }
 }

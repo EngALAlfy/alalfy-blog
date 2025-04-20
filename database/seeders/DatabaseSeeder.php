@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Post::factory(100)->create();
+//        Post::factory(100)->create();
 
         $categories = Category::cursor();
 

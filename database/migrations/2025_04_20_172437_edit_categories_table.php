@@ -8,7 +8,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('categories', function (Blueprint $table) {
-            $table->string("slug" , 300)->unique()->index()->after("title");
+            $table->string("slug" , 300)->unique()->index()->after("name");
         });
     }
 

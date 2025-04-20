@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
     {
         Post::factory(100)->create();
 
-        $categories = Category::whereNull("categories.slug")->cursor();
+        $categories = Category::cursor();
 
         foreach ($categories as $category) {
             $category->slug = Str::slug($category->name);

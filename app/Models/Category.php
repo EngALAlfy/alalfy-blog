@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Tags\HasTags;
@@ -17,7 +18,16 @@ class Category extends Model implements HasMedia
         'name',
         'short_description',
         'description',
+        'slug',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::saving(function (Model $model) {
+            $model->slug = Str::slug($model->name);
+        });
+    }
 
     public function posts(): HasMany
     {

@@ -83,19 +83,20 @@ class PostsController extends Controller
     public function categories(): AnonymousResourceCollection
     {
         // Get all categories with their IDs
-        $categoryIds = \App\Models\Category::limit(9)->pluck('id');
+        $categoryIds = \App\Models\Category::inRandomOrder()->limit(6)->pluck('id');
 
         // Query to get one post from each category
         $posts = collect();
 
-        foreach ($categoryIds as $categoryId) {
-            $post = $this->getBaseQuery()
+        foreach ($categoryIds as $index => $categoryId) {
+             $posts = $this->getBaseQuery()
                 ->where('category_id', $categoryId)
-                ->latest() // Get the latest post from each category
-                ->first();
+                ->latest()
+                ->limit($index > 3 ? 2 : 1)
+             ->get();
 
-            if ($post) {
-                $posts->push($post);
+            if ($posts->isNotEmpty()) {
+                $posts->push($posts);
             }
         }
 

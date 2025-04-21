@@ -93,10 +93,10 @@ class PostsController extends Controller
                 ->where('category_id', $categoryId)
                 ->latest()
                 ->limit($index > 3 ? 2 : 1)
-             ->get();
+                ->get();
 
             if ($posts->isNotEmpty()) {
-                $posts->push($posts);
+                $posts->push(...$posts);
             }
         }
 

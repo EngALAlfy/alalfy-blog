@@ -90,6 +90,7 @@ class PostsController extends Controller
 
         foreach ($categoryIds as $index => $categoryId) {
              $posts = $this->getBaseQuery()
+                 ->clone()
                 ->where('category_id', $categoryId)
                 ->latest()
                 ->limit($index > 2 ? 2 : 1)

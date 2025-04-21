@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/posts/hero', [PostsController::class , 'hero']);
 Route::get('/posts/featured', [PostsController::class , 'featured']);
+Route::get('/posts/categories', [PostsController::class , 'categories']);
 Route::get('/posts/latest', [PostsController::class , 'latest']);
 Route::get('/posts/{post:slug}', [PostsController::class , 'show']);
 

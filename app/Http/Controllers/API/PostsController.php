@@ -76,6 +76,33 @@ class PostsController extends Controller
     }
 
     /**
+     * Get post from every category
+     *
+     * @return AnonymousResourceCollection
+     */
+    public function categories(): AnonymousResourceCollection
+    {
+        // Get all categories with their IDs
+        $categoryIds = \App\Models\Category::limit(9)->pluck('id');
+
+        // Query to get one post from each category
+        $posts = collect();
+
+        foreach ($categoryIds as $categoryId) {
+            $post = $this->getBaseQuery()
+                ->where('category_id', $categoryId)
+                ->latest() // Get the latest post from each category
+                ->first();
+
+            if ($post) {
+                $posts->push($post);
+            }
+        }
+
+        return PostResource::collection($posts);
+    }
+
+    /**
      * Show a specific post
      *
      * @param Post $post

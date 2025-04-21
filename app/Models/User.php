@@ -69,4 +69,15 @@ class User extends Authenticatable implements HasAvatar , FilamentUser , HasMedi
     {
         return $this->getFirstMediaUrl("avatar" , "avatar");
     }
+
+    public function registerMediaCollections(): void
+    {
+        $fallbackText = 'U';
+        if (!empty($this->title)) {
+            $fallbackText = preg_replace('/\b(\w)/', '$1', ucwords($this->title));
+            $fallbackText = preg_replace('/[^A-Z]/', '', $fallbackText);
+        }
+
+        $this->addMediaCollection('avatar')->useFallbackUrl("https://placehold.co/150x150?text=" . $fallbackText);
+    }
 }

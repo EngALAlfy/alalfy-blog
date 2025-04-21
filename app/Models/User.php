@@ -74,7 +74,7 @@ class User extends Authenticatable implements HasAvatar , FilamentUser , HasMedi
     {
         $fallbackText = 'U';
         if (!empty($this->title)) {
-            $fallbackText = preg_replace('/\b(\w)/', '$1', ucwords($this->title));
+            $fallbackText = preg_replace('/\b(\w)/', '$1', ucwords($this->name));
             $fallbackText = preg_replace('/[^A-Z]/', '', $fallbackText);
         }
 

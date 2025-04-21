@@ -89,16 +89,15 @@ class PostsController extends Controller
         $posts = collect();
 
         foreach ($categoryIds as $index => $categoryId) {
-            dd($index , $categoryId);
-             $posts = $this->getBaseQuery()
+             $_posts = $this->getBaseQuery()
                  ->clone()
                 ->where('category_id', $categoryId)
                 ->latest()
                 ->limit($index > 2 ? 2 : 1)
                 ->get();
 
-            if ($posts->isNotEmpty()) {
-                $posts->push(...$posts);
+            if ($_posts->isNotEmpty()) {
+                $posts->push(...$_posts);
             }
         }
 

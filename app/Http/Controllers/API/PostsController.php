@@ -88,6 +88,7 @@ class PostsController extends Controller
         // Query to get one post from each category
         $posts = collect();
 
+        dd($categoryIds);
         foreach ($categoryIds as $index => $categoryId) {
              $posts = $this->getBaseQuery()
                 ->where('category_id', $categoryId)

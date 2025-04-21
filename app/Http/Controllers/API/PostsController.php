@@ -89,6 +89,7 @@ class PostsController extends Controller
         $posts = collect();
 
         foreach ($categoryIds as $index => $categoryId) {
+            dd($index , $categoryId);
              $posts = $this->getBaseQuery()
                  ->clone()
                 ->where('category_id', $categoryId)

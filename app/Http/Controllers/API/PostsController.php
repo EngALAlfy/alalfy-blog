@@ -10,28 +10,28 @@ class PostsController extends Controller
 {
     public function all(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
-        return PostResource::collection(Post::with('category', 'tags')->withCount("comments", "tags")->get());
+        return PostResource::collection(Post::with('category', 'tags' , 'author')->withCount("comments", "tags")->get());
     }
 
     public function latest(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
-        return PostResource::collection(Post::with('category', 'tags')->withCount("comments", "tags")->limit(9)->get());
+        return PostResource::collection(Post::with('category', 'tags' , 'author')->withCount("comments", "tags")->limit(9)->get());
     }
 
     public function hero(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
-        return PostResource::collection(Post::with('category', 'tags')->withCount("comments", "tags")->limit(5)->get());
+        return PostResource::collection(Post::with('category', 'tags' , 'author')->withCount("comments", "tags")->limit(5)->get());
     }
 
     public function featured(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
-        return PostResource::collection(Post::with('category', 'tags')->withCount("comments", "tags")->limit(9)->get());
+        return PostResource::collection(Post::with('category', 'tags' , 'author')->withCount("comments", "tags")->limit(9)->get());
     }
 
     public function show(Post $post): PostResource
     {
         return new PostResource(
-            $post->load('category', 'tags')->loadCount("comments", "tags")
+            $post->load('category', 'tags' , 'author')->loadCount("comments", "tags")
         );
     }
 

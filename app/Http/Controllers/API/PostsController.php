@@ -88,12 +88,11 @@ class PostsController extends Controller
         // Query to get one post from each category
         $posts = collect();
 
-        dd($categoryIds);
         foreach ($categoryIds as $index => $categoryId) {
              $posts = $this->getBaseQuery()
                 ->where('category_id', $categoryId)
                 ->latest()
-                ->limit($index > 3 ? 2 : 1)
+                ->limit($index > 2 ? 2 : 1)
                 ->get();
 
             if ($posts->isNotEmpty()) {

@@ -70,7 +70,6 @@ class PostsController extends Controller
         // Modified to differentiate from latest() method
         return PostResource::collection(
             $this->getBaseQuery()
-                 ->where('status', 'published') // Assuming there's a status field
                  ->limit(9)
                  ->get()
         );

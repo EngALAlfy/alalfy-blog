@@ -103,8 +103,8 @@ class PostResource extends Resource
                         return count(explode(' ', $record->short_description)) <= 10 ? null : $record->short_description;
                     }),
                 TextColumn::make('status')->label('Status')->badge(),
-                TextColumn::make('author.name')->label('Author'),
-                TextColumn::make('category.name')->label('Category'),
+                TextColumn::make('author.name')->label('Author')->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('category.name')->label('Category')->toggleable(isToggledHiddenByDefault: true),
                 SpatieMediaLibraryImageColumn::make("banner")->collection("banner")->label('Banner'),
                 TextColumn::make("created_at"),
             ])
@@ -112,10 +112,12 @@ class PostResource extends Resource
                 //
             ])
             ->actions([
-                UpdateStatusAction::make(),
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    UpdateStatusAction::make(),
+                    Tables\Actions\ViewAction::make(),
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\DeleteAction::make(),
+                ])
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

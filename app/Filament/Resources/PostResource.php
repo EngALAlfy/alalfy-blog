@@ -157,6 +157,7 @@ class PostResource extends Resource
                 TextEntry::make('description')->label('Description')->html(),
                 SpatieTagsEntry::make('tags'),
                 TextEntry::make('status')->label('Status')->badge(),
+                TextEntry::make('slug')->label('Slug')->badge()->url(fn($record) => config('app.frontend_url') . "/{$record->slug}"),
                 TextEntry::make('status_at')->label('Status At')->dateTime(),
                 TextEntry::make('author.name')->label('Author'),
                 TextEntry::make('category.name')->label('Category'),

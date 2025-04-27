@@ -10,6 +10,7 @@ use App\Filament\Resources\PostResource\RelationManagers\CommentsRelationManager
 use App\Models\Post;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Infolists\Components\Section;
 use Filament\Infolists\Components\SpatieTagsEntry;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -152,16 +153,19 @@ class PostResource extends Resource
     {
         return $infolist
             ->schema([
-                TextEntry::make('title')->label('Title'),
-                TextEntry::make('short_description')->label('Short Description'),
-                TextEntry::make('description')->label('Description')->html(),
-                SpatieTagsEntry::make('tags'),
-                TextEntry::make('status')->label('Status')->badge(),
-                TextEntry::make('slug')->label('Slug')->badge()->url(fn($record) => config('app.frontend_url') . "/{$record->slug}"),
-                TextEntry::make('status_at')->label('Status At')->dateTime(),
-                TextEntry::make('author.name')->label('Author'),
-                TextEntry::make('category.name')->label('Category'),
+                Section::make([
+                    TextEntry::make('title')->label('Title'),
+                    TextEntry::make('short_description')->label('Short Description'),
+                    TextEntry::make('description')->label('Description')->html(),
+                    SpatieTagsEntry::make('tags'),
+                    TextEntry::make('status')->label('Status')->badge(),
+                    TextEntry::make('slug')->label('Slug')->badge()->url(fn($record) => config('app.frontend_url') . "/{$record->slug}")->openUrlInNewTab(),
+                    TextEntry::make('status_at')->label('Status At')->dateTime(),
+                    TextEntry::make('author.name')->label('Author'),
+                    TextEntry::make('category.name')->label('Category'),
+                ])->columns(),
+
                 SpatieMediaLibraryImageEntry::make('banner')->collection('banner')->label('Banner Image')->columnSpanFull(),
-            ]);
+            ])->columns(1);
     }
 }

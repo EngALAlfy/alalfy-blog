@@ -74,13 +74,10 @@ class AdminPanelProvider extends PanelProvider
             ->plugin(
                 BreezyCore::make()
                     ->myProfile(
-                        shouldRegisterUserMenu: true,
                         shouldRegisterNavigation: true,
-                        hasAvatars: true,
                     )
                     ->customMyProfilePage(MyProfilePage::class)
                     ->enableTwoFactorAuthentication(false)
-                    ->avatarUploadComponent(fn() => SpatieMediaLibraryFileUpload::make("avatar")->collection("avatar")->avatar()->imageEditor())
             )
             ->authMiddleware([
                 Authenticate::class,

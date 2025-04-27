@@ -160,7 +160,7 @@ class PostResource extends Resource
                 TextEntry::make('status_at')->label('Status At')->dateTime(),
                 TextEntry::make('author.name')->label('Author'),
                 TextEntry::make('category.name')->label('Category'),
-                SpatieMediaLibraryImageEntry::make('banner')->collection('banner')->label('Banner Image'),
+                SpatieMediaLibraryImageEntry::make('banner')->collection('banner')->label('Banner Image')->columnSpanFull(),
             ]);
     }
 }

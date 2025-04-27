@@ -9,20 +9,19 @@ use App\Filament\Resources\PostResource\Pages;
 use App\Filament\Resources\PostResource\RelationManagers\CommentsRelationManager;
 use App\Models\Post;
 use Filament\Forms;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Form;
 use Filament\Infolists\Components\Section;
+use Filament\Infolists\Components\SpatieMediaLibraryImageEntry;
 use Filament\Infolists\Components\SpatieTagsEntry;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Table;
-use Filament\Infolists\Components\TextEntry;
-use Filament\Infolists\Components\SpatieMediaLibraryImageEntry;
-use Filament\Infolists\Infolist;
-use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
-use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
-use Schmeits\FilamentCharacterCounter\Forms\Components\RichEditor;
 use Schmeits\FilamentCharacterCounter\Forms\Components\Textarea;
 use Schmeits\FilamentCharacterCounter\Forms\Components\TextInput;
 
@@ -165,7 +164,11 @@ class PostResource extends Resource
                     TextEntry::make('category.name')->label('Category'),
                 ])->columns(),
 
-                SpatieMediaLibraryImageEntry::make('banner')->collection('banner')->label('Banner Image')->width("100%")->columnSpanFull(),
+                SpatieMediaLibraryImageEntry::make('banner')->collection('banner')->label('Banner Image')
+                    ->height('auto')
+                    ->width("100%")
+                    ->alignCenter()
+                    ->columnSpanFull(),
             ])->columns(1);
     }
 }

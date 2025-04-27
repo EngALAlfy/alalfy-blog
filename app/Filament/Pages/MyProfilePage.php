@@ -10,4 +10,9 @@ class MyProfilePage extends \Jeffgreco13\FilamentBreezy\Pages\MyProfilePage
     {
         return __('Settings');
     }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('Profile data');
+    }
 }

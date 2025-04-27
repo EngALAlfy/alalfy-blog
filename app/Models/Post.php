@@ -33,13 +33,18 @@ class Post extends Model implements HasMedia
     {
         parent::boot();
         static::saving(function (Model $model) {
-           $model->slug = Str::slug($model->title);
+            $model->slug = Str::slug($model->title);
         });
     }
 
     public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'author_id');
+    }
+
+    public function scopeActive($query): Post
+    {
+        return $this->where('status', PostStatusEnum::ACTIVE);
     }
 
     public function category(): BelongsTo

@@ -18,7 +18,7 @@ class PostsController extends Controller
     protected function getBaseQuery(): Builder
     {
         return Post::with('category', 'tags', 'author')
-                  ->withCount('comments', 'tags');
+                  ->withCount('comments', 'tags')->active();
     }
 
     /**

@@ -165,7 +165,7 @@ class PostResource extends Resource
                     TextEntry::make('category.name')->label('Category'),
                 ])->columns(),
 
-                SpatieMediaLibraryImageEntry::make('banner')->collection('banner')->label('Banner Image')->columnSpanFull(),
+                SpatieMediaLibraryImageEntry::make('banner')->collection('banner')->label('Banner Image')->width("100%")->columnSpanFull(),
             ])->columns(1);
     }
 }

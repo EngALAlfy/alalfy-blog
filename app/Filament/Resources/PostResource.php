@@ -21,6 +21,9 @@ use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Illuminate\Database\Eloquent\Model;
+use Schmeits\FilamentCharacterCounter\Forms\Components\RichEditor;
+use Schmeits\FilamentCharacterCounter\Forms\Components\Textarea;
+use Schmeits\FilamentCharacterCounter\Forms\Components\TextInput;
 
 class PostResource extends Resource
 {
@@ -49,12 +52,12 @@ class PostResource extends Resource
             ->schema([
                 Forms\Components\Section::make([
                     Forms\Components\Group::make([
-                        \Schmeits\FilamentCharacterCounter\Forms\Components\TextInput::make('title')
+                        TextInput::make('title')
                             ->required()
                             ->maxLength(255)
                             ->label('Title'),
 
-                        \Schmeits\FilamentCharacterCounter\Forms\Components\Textarea::make('short_description')
+                        Textarea::make('short_description')
                             ->maxLength(500)
                             ->label('Short Description'),
 
@@ -79,9 +82,10 @@ class PostResource extends Resource
                             ->collection("banner")
                             ->label('Banner Image'),
 
-                        \Schmeits\FilamentCharacterCounter\Forms\Components\RichEditor::make('description')
+                        Textarea::make('description')
                             ->required()
-                            ->label('Description'),
+                            ->rows(15)
+                            ->label('Description [HTML]'),
 
                     ]),
 

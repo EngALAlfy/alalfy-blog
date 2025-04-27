@@ -25,21 +25,20 @@ class AuthorProfilePage extends Page
 
     public static function getNavigationLabel(): string
     {
-        return __("Vendor Profile");
+        return __("Author Profile");
     }
 
     public function getBreadcrumbs(): array
     {
         return [
-            "Store",
-            "Vendor",
+            "Author",
             "Profile"
         ];
     }
 
     public function getHeading(): string|Htmlable
     {
-        return __('Vendor Profile');
+        return __('Author Profile');
     }
 
     public function getSubheading(): string|Htmlable|null
@@ -49,7 +48,7 @@ class AuthorProfilePage extends Page
 
     public static function getNavigationGroup(): ?string
     {
-        return __('Dashboard');
+        return __('Settings');
     }
 
     protected static ?int $navigationSort = 2;

@@ -42,7 +42,7 @@ class Post extends Model implements HasMedia
         return $this->belongsTo(User::class, 'author_id');
     }
 
-    public function scopeActive($query): Post
+    public function scopeActive($query)
     {
         return $this->where('status', PostStatusEnum::ACTIVE);
     }

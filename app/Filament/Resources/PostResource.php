@@ -158,7 +158,7 @@ class PostResource extends Resource
                     TextEntry::make('description')
                         ->label('Description')
                         ->html()
-                        ->words(200)
+                        ->limit(500)
                         ->expandableLimitedList(),
                     SpatieTagsEntry::make('tags'),
                     TextEntry::make('status')->label('Status')->badge(),

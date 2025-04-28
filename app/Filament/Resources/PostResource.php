@@ -11,6 +11,7 @@ use App\Models\Post;
 use Filament\Forms;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Form;
+use Filament\Infolists\Components\Group;
 use Filament\Infolists\Components\Section;
 use Filament\Infolists\Components\SpatieMediaLibraryImageEntry;
 use Filament\Infolists\Components\SpatieTagsEntry;
@@ -153,14 +154,16 @@ class PostResource extends Resource
         return $infolist
             ->schema([
                 Section::make([
-                    TextEntry::make('title')->label('Title'),
+                    Group::make([
+                        TextEntry::make('title')->label('Title'),
+                        SpatieTagsEntry::make('tags'),
+                    ]),
                     TextEntry::make('short_description')->label('Short Description'),
                     TextEntry::make('description')
                         ->label('Description')
                         ->html()
                         ->limit(500)
                         ->expandableLimitedList(),
-                    SpatieTagsEntry::make('tags'),
                     TextEntry::make('status')->label('Status')->badge(),
                     TextEntry::make('slug')->label('Slug')->badge()->url(fn($record) => config('app.frontend_url') . "/{$record->slug}")->openUrlInNewTab(),
                     TextEntry::make('status_at')->label('Status At')->dateTime(),

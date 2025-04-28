@@ -14,14 +14,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-//        Post::factory(100)->create();
+       Post::factory(100)->create();
 
-        $categories = Category::cursor();
+        // $categories = Category::cursor();
 
-        foreach ($categories as $category) {
-            $category->slug = Str::slug($category->name);
-            $category->save();
-        }
+        // foreach ($categories as $category) {
+        //     $category->slug = Str::slug($category->name);
+        //     $category->save();
+        // }
 
         $posts = Post::cursor();
 

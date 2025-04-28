@@ -155,7 +155,11 @@ class PostResource extends Resource
                 Section::make([
                     TextEntry::make('title')->label('Title'),
                     TextEntry::make('short_description')->label('Short Description'),
-                    TextEntry::make('description')->label('Description')->html(),
+                    TextEntry::make('description')
+                        ->label('Description')
+                        ->html()
+                        ->words(200)
+                        ->expandableLimitedList(),
                     SpatieTagsEntry::make('tags'),
                     TextEntry::make('status')->label('Status')->badge(),
                     TextEntry::make('slug')->label('Slug')->badge()->url(fn($record) => config('app.frontend_url') . "/{$record->slug}")->openUrlInNewTab(),

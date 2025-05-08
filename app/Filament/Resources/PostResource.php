@@ -74,16 +74,17 @@ class PostResource extends Resource
                             ->preload()
                             ->label('Category'),
 
-                        Forms\Components\SpatieTagsInput::make("tags"),
+                        Forms\Components\SpatieTagsInput::make("tags")->splitKeys(["," , "Enter"]),
                     ]),
 
                     Forms\Components\Group::make([
 
                         SpatieMediaLibraryFileUpload::make("banner")
                             ->collection("banner")
-                            ->label('Banner Image'),
-
-
+                            ->label('Banner Image')
+                            ->imageEditor()
+                            ->imageCropAspectRatio("16:9")
+                            ->imageEditorAspectRatios(["16:9"]),
                     ]),
 
                 ])->columns(2),
@@ -101,7 +102,7 @@ class PostResource extends Resource
                         ->required()
                         ->label('Description')
                         ->grow(true),
-])->columns()
+                ])->columns()
             ]);
     }
 

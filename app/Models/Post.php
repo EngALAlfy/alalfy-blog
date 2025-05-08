@@ -8,8 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
+use Spatie\Image\Enums\AlignPosition;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Tags\HasTags;
 
 class Post extends Model implements HasMedia
@@ -58,6 +60,11 @@ class Post extends Model implements HasMedia
             'status_at' => 'datetime',
             'status' => PostStatusEnum::class,
         ];
+    }
+    public function registerMediaConversions(?Media $media = null): void
+    {
+        $this->addMediaConversion('banner')
+            ->watermark(asset('logo.png') , AlignPosition::BottomLeft);
     }
 
     public function registerMediaCollections(): void

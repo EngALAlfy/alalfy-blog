@@ -93,12 +93,13 @@ class PostResource extends Resource
                         ->required()
                         ->helperText("HTML Source of the post")
                         ->label('Description [HTML]')
+                        ->rows(20)
                         ->extraAttributes(['style' => 'min-height: 100%;height: 100%;']),
 
                     Forms\Components\RichEditor::make('description')
                         ->required()
                         ->label('Description')
-                        ->extraAttributes(['style' => 'min-height: 100%;height: 100%;']),
+                        ->grow(false),
 ])->columns()
             ]);
     }

@@ -65,7 +65,7 @@ class Post extends Model implements HasMedia
     {
         $this->addMediaConversion('banner')
             ->nonQueued()
-            ->watermark(asset('logo.png') , AlignPosition::BottomLeft , paddingX: 20, paddingY: 20, width: 100, height: 100)->performOnCollections("banner");
+            ->watermark(public_path('logo.png') , AlignPosition::BottomLeft , paddingX: 20, paddingY: 20, width: 100, height: 100)->performOnCollections("banner");
     }
 
     public function registerMediaCollections(): void

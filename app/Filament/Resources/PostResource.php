@@ -91,7 +91,6 @@ class PostResource extends Resource
                 Forms\Components\Section::make([
                     Textarea::make('description')
                         ->required()
-                        ->rows(15)
                         ->helperText("HTML Source of the post")
                         ->label('Description [HTML]')
                         ->extraAttributes(['style' => 'min-height: 100%;height: 100%;']),

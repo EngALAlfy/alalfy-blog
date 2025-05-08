@@ -83,10 +83,9 @@ class PostResource extends Resource
                             ->collection("banner")
                             ->label('Banner Image'),
 
-                        Textarea::make('description')
+                        Forms\Components\RichEditor::make('description')
                             ->required()
-                            ->rows(15)
-                            ->label('Description [HTML]'),
+                            ->label('Description'),
 
                     ]),
 

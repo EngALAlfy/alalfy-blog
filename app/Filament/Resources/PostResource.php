@@ -91,7 +91,7 @@ class PostResource extends Resource
                 Forms\Components\Section::make([
                     Textarea::make('description')
                         ->required()
-                        ->rows(15)
+                        ->helperText("HTML Source of the post")
                         ->label('Description [HTML]'),
 
                     Forms\Components\RichEditor::make('description')
@@ -125,7 +125,7 @@ class PostResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
-                    UpdateStatusAction::make(),
+                    UpdateStatusAction::make()->enumClass(PostStatusEnum::class),
                     Tables\Actions\ViewAction::make(),
                     Tables\Actions\EditAction::make(),
                     Tables\Actions\DeleteAction::make(),
@@ -133,7 +133,7 @@ class PostResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    UpdateStatusBulkAction::make(),
+                    UpdateStatusBulkAction::make()->enumClass(PostStatusEnum::class),
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);

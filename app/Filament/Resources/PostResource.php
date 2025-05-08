@@ -94,12 +94,12 @@ class PostResource extends Resource
                         ->rows(15)
                         ->helperText("HTML Source of the post")
                         ->label('Description [HTML]')
-                        ->extraAttributes(['style' => 'min-height: 400px;']), // Fixed height
+                        ->extraAttributes(['style' => 'min-height: 400px;']),
 
-                    Forms\Components\RichEditor::make('rich_description') // Use a different name temporarily
+                    Forms\Components\RichEditor::make('description')
                         ->required()
                         ->label('Description')
-                        ->extraAttributes(['style' => 'min-height: 400px;']), // Same height
+                        ->extraAttributes(['style' => 'min-height: 400px;']),
 ])->columns()
             ]);
     }

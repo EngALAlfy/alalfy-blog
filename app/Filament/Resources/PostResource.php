@@ -91,13 +91,16 @@ class PostResource extends Resource
                 Forms\Components\Section::make([
                     Textarea::make('description')
                         ->required()
+                        ->rows(15)
                         ->helperText("HTML Source of the post")
-                        ->label('Description [HTML]'),
+                        ->label('Description [HTML]')
+                        ->extraAttributes(['style' => 'min-height: 400px;']), // Fixed height
 
-                    Forms\Components\RichEditor::make('description')
+                    Forms\Components\RichEditor::make('rich_description') // Use a different name temporarily
                         ->required()
-                        ->label('Description'),
-                ])->columns()
+                        ->label('Description')
+                        ->extraAttributes(['style' => 'min-height: 400px;']), // Same height
+])->columns()
             ]);
     }
 

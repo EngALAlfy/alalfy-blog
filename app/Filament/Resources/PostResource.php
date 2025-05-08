@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use AmidEsfahani\FilamentTinyEditor\TinyEditor;
 use App\Actions\UpdateStatusAction;
 use App\Actions\UpdateStatusBulkAction;
 use App\Enums\PostStatusEnum;
@@ -89,20 +90,14 @@ class PostResource extends Resource
 
                 ])->columns(2),
 
-                Forms\Components\Section::make([
-                    Textarea::make('description')
-                        ->required()
-                        ->helperText("HTML Source of the post")
-                        ->label('Description [HTML]')
-                        ->rows(50)
-                        ->grow(true)
-                        ->extraAttributes(['style' => 'min-height: 100%;height: 100%;']),
-
-                    Forms\Components\RichEditor::make('description')
-                        ->required()
-                        ->label('Description')
-                        ->grow(true),
-                ])->columns()
+                TinyEditor::make('description')
+                    ->fileAttachmentsDisk('public')
+                    ->fileAttachmentsVisibility('public')
+                    ->fileAttachmentsDirectory('uploads')
+                    ->profile('default|simple|full|minimal|none|custom')
+                    ->rtl()
+                    ->columnSpan('full')
+                    ->required(),
             ]);
     }
 

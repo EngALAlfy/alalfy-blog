@@ -95,6 +95,7 @@ class PostResource extends Resource
                     ->fileAttachmentsVisibility('public')
                     ->fileAttachmentsDirectory('uploads')
                     ->rtl()
+                    ->showMenuBar()
                     ->columnSpan('full')
                     ->required(),
             ]);

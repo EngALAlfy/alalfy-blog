@@ -94,7 +94,6 @@ class PostResource extends Resource
                     ->fileAttachmentsDisk('public')
                     ->fileAttachmentsVisibility('public')
                     ->fileAttachmentsDirectory('uploads')
-                    ->profile('default|simple|full|minimal|none|custom')
                     ->rtl()
                     ->columnSpan('full')
                     ->required(),

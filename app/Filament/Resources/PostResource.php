@@ -9,6 +9,7 @@ use App\Enums\PostStatusEnum;
 use App\Filament\Resources\PostResource\Pages;
 use App\Filament\Resources\PostResource\RelationManagers\CommentsRelationManager;
 use App\Models\Post;
+use App\Services\GeminiService;
 use Filament\Forms;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Form;
@@ -25,6 +26,9 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
 use Schmeits\FilamentCharacterCounter\Forms\Components\Textarea;
+use Filament\Forms\Get;
+use Filament\Forms\Set;
+use Filament\Forms\Components\Actions\Action;
 use Schmeits\FilamentCharacterCounter\Forms\Components\TextInput;
 
 class PostResource extends Resource
@@ -52,12 +56,43 @@ class PostResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Section::make([
-                    Forms\Components\Group::make([
+                Forms\Components\Group::make([
+                    Forms\Components\Section::make([
                         TextInput::make('title')
                             ->required()
                             ->maxLength(255)
-                            ->label('Title'),
+                            ->label('Title')
+                            ->suffixAction(
+                                Action::make('aiGenerateMeta')
+                                    ->icon('heroicon-m-sparkles')
+                                    ->tooltip(__('Use AI to generate title, short description & tags from description'))
+                                    ->color('primary')
+                                    ->disabled(fn(Get $get): bool => blank($get('description')))
+                                    ->action(function (Get $get, Set $set, GeminiService $gemini) {
+                                        $content = (string)($get('description') ?? '');
+                                        if (blank($content)) {
+                                            \Filament\Notifications\Notification::make()
+                                                ->title(__('Description is required for AI generation.'))
+                                                ->danger()
+                                                ->send();
+                                            return;
+                                        }
+                                        $meta = $gemini->generateMeta($content);
+                                        if (isset($meta['title'])) {
+                                            $set('title', $meta['title']);
+                                        }
+                                        if (isset($meta['short_description'])) {
+                                            $set('short_description', $meta['short_description']);
+                                        }
+                                        if (isset($meta['tags'])) {
+                                            $set('tags', $meta['tags']);
+                                        }
+                                        \Filament\Notifications\Notification::make()
+                                            ->title(__('AI meta generated successfully.'))
+                                            ->success()
+                                            ->send();
+                                    })
+                            ),
 
                         Textarea::make('short_description')
                             ->maxLength(500)
@@ -75,26 +110,25 @@ class PostResource extends Resource
                             ->preload()
                             ->label('Category'),
 
-                        Forms\Components\SpatieTagsInput::make("tags")->splitKeys(["," , "Enter"]),
-                    ]),
+                        Forms\Components\SpatieTagsInput::make("tags")->splitKeys([",", "Enter"]),
+                    ])->columnSpan(1),
 
-                    Forms\Components\Group::make([
+                    SpatieMediaLibraryFileUpload::make("banner")
+                        ->collection("banner")
+                        ->label('Banner Image')
+                        ->imageEditor()
+                        ->imageCropAspectRatio("16:9")
+                        ->imageEditorAspectRatios(["16:9"])
+                        ->columnSpan(1),
 
-                        SpatieMediaLibraryFileUpload::make("banner")
-                            ->collection("banner")
-                            ->label('Banner Image')
-                            ->imageEditor()
-                            ->imageCropAspectRatio("16:9")
-                            ->imageEditorAspectRatios(["16:9"]),
-                    ]),
-
-                ])->columns(2),
+                ])->columns(2)->columnSpanFull(),
 
                 TinyEditor::make('description')
                     ->fileAttachmentsDisk('public')
                     ->fileAttachmentsVisibility('public')
                     ->fileAttachmentsDirectory('uploads')
                     ->rtl()
+                    ->reactive()
                     ->showMenuBar()
                     ->columnSpan('full')
                     ->required(),

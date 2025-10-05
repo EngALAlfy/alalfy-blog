@@ -24,6 +24,9 @@ use Filament\Tables;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Filters\Filter;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Schmeits\FilamentCharacterCounter\Forms\Components\Textarea;
 use Filament\Forms\Get;
@@ -150,12 +153,20 @@ class PostResource extends Resource
                     }),
                 TextColumn::make('status')->label('Status')->badge(),
                 TextColumn::make('author.name')->label('Author')->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('category.name')->label('Category')->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('category.name')->label('Category')->toggleable(),
                 SpatieMediaLibraryImageColumn::make("banner")->collection("banner")->label('Banner'),
                 TextColumn::make("created_at"),
             ])
             ->filters([
-                //
+                SelectFilter::make('status')
+                    ->label('Status')
+                    ->options(PostStatusEnum::class),
+                SelectFilter::make('category_id')
+                    ->label('Category')
+                    ->relationship('category', 'name'),
+                SelectFilter::make('author_id')
+                    ->label('Author')
+                    ->relationship('author', 'name'),
             ])
             ->actions([
                 Tables\Actions\ActionGroup::make([

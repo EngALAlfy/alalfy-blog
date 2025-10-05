@@ -99,11 +99,11 @@ PROMPT;
 
             $result = [];
             if (isset($data['title']) && is_string($data['title'])) {
-                $result['title'] = trim(Str::limit($data['title'], 70, ''));
+                $result['title'] = trim($data['title']);
             }
             if (isset($data['short_description']) && is_string($data['short_description'])) {
                 $cleanShort = preg_replace('/\s+/', ' ', trim($data['short_description']));
-                $result['short_description'] = Str::limit($cleanShort, 180, '');
+                $result['short_description'] = Str::limit($cleanShort, 500, '');
             }
             if (isset($data['tags']) && is_array($data['tags'])) {
                 $tags = collect($data['tags'])
@@ -112,7 +112,6 @@ PROMPT;
                     ->filter(fn ($t) => $t !== '')
                     ->unique()
                     ->values()
-                    ->take(8)
                     ->all();
                 if (count($tags) >= 3) {
                     $result['tags'] = $tags;

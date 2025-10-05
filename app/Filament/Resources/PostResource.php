@@ -59,43 +59,105 @@ class PostResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\Section::make('AI Actions')
+                    ->description('Use AI to generate content for your post')
+                    ->schema([
+                        Forms\Components\Actions::make([
+                            Action::make('aiGenerateMeta')
+                                ->label('Generate Title, Description & Tags')
+                                ->icon('heroicon-m-sparkles')
+                                ->color('primary')
+                                ->disabled(fn(Get $get): bool => blank($get('description')))
+                                ->action(function (Get $get, Set $set, GeminiService $gemini) {
+                                    $content = (string)($get('description') ?? '');
+                                    if (blank($content)) {
+                                        \Filament\Notifications\Notification::make()
+                                            ->title(__('Description is required for AI generation.'))
+                                            ->danger()
+                                            ->send();
+                                        return;
+                                    }
+                                    $meta = $gemini->generateMeta($content);
+                                    if (isset($meta['title'])) {
+                                        $set('title', $meta['title']);
+                                    }
+                                    if (isset($meta['short_description'])) {
+                                        $set('short_description', $meta['short_description']);
+                                    }
+                                    if (isset($meta['tags'])) {
+                                        $set('tags', $meta['tags']);
+                                    }
+                                    \Filament\Notifications\Notification::make()
+                                        ->title(__('AI meta generated successfully.'))
+                                        ->success()
+                                        ->send();
+                                }),
+                            Action::make('aiGenerateImage')
+                                ->label('Generate Banner Image')
+                                ->icon('heroicon-m-photo')
+                                ->color('secondary')
+                                ->disabled(fn(Get $get): bool => blank($get('title')) && blank($get('description')))
+                                ->action(function (Get $get, Set $set, GeminiService $gemini) {
+                                    $title = (string)($get('title') ?? '');
+                                    $description = (string)($get('description') ?? '');
+
+                                    if (blank($title) && blank($description)) {
+                                        \Filament\Notifications\Notification::make()
+                                            ->title(__('Title or description is required for AI image generation.'))
+                                            ->danger()
+                                            ->send();
+                                        return;
+                                    }
+
+                                    // Show loading notification
+                                    \Filament\Notifications\Notification::make()
+                                        ->title(__('Generating AI image...'))
+                                        ->info()
+                                        ->send();
+
+                                    $result = $gemini->generatePostImage($title, $description);
+
+                                    if (!$result['success']) {
+                                        \Filament\Notifications\Notification::make()
+                                            ->title(__('AI image generation failed'))
+                                            ->body($result['error'] ?? __('Unknown error'))
+                                            ->danger()
+                                            ->send();
+                                        return;
+                                    }
+
+                                    // Convert base64 to temporary file
+                                    $imageData = base64_decode($result['image_data']);
+                                    $tempPath = tempnam(sys_get_temp_dir(), 'ai_generated_') . '.png';
+                                    file_put_contents($tempPath, $imageData);
+
+                                    // Create a temporary uploaded file
+                                    $uploadedFile = new \Illuminate\Http\UploadedFile(
+                                        $tempPath,
+                                        'ai-generated-banner.png',
+                                        'image/png',
+                                        null,
+                                        true
+                                    );
+
+                                    // Set the file to the banner field
+                                    $set('banner', [$uploadedFile]);
+
+                                    \Filament\Notifications\Notification::make()
+                                        ->title(__('AI image generated successfully!'))
+                                        ->success()
+                                        ->send();
+                                })
+                        ])
+                    ])
+                    ->columnSpanFull(),
+
                 Forms\Components\Group::make([
                     Forms\Components\Section::make([
                         TextInput::make('title')
                             ->required()
                             ->maxLength(255)
-                            ->label('Title')
-                            ->suffixAction(
-                                Action::make('aiGenerateMeta')
-                                    ->icon('heroicon-m-sparkles')
-                                    ->tooltip(__('Use AI to generate title, short description & tags from description'))
-                                    ->color('primary')
-                                    ->disabled(fn(Get $get): bool => blank($get('description')))
-                                    ->action(function (Get $get, Set $set, GeminiService $gemini) {
-                                        $content = (string)($get('description') ?? '');
-                                        if (blank($content)) {
-                                            \Filament\Notifications\Notification::make()
-                                                ->title(__('Description is required for AI generation.'))
-                                                ->danger()
-                                                ->send();
-                                            return;
-                                        }
-                                        $meta = $gemini->generateMeta($content);
-                                        if (isset($meta['title'])) {
-                                            $set('title', $meta['title']);
-                                        }
-                                        if (isset($meta['short_description'])) {
-                                            $set('short_description', $meta['short_description']);
-                                        }
-                                        if (isset($meta['tags'])) {
-                                            $set('tags', $meta['tags']);
-                                        }
-                                        \Filament\Notifications\Notification::make()
-                                            ->title(__('AI meta generated successfully.'))
-                                            ->success()
-                                            ->send();
-                                    })
-                            ),
+                            ->label('Title'),
 
                         Textarea::make('short_description')
                             ->maxLength(500)

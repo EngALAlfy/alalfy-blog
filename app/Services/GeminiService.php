@@ -130,6 +130,98 @@ PROMPT;
         }
     }
 
+    /**
+     * Generate an image for a post using Gemini Flash Image API.
+     *
+     * @param string $title
+     * @param string $description
+     * @return array{success: bool, image_data?: string, error?: string}
+     */
+    public function generatePostImage(string $title, string $description): array
+    {
+        $title = trim($title);
+        $description = trim(strip_tags($description));
+
+        if ($title === '' && $description === '') {
+            return ['success' => false, 'error' => 'Title and description cannot both be empty'];
+        }
+
+        $apiKey = config('ai.gemini_api_key');
+        $timeout = (int) config('ai.timeout', 30); // Longer timeout for image generation
+
+        if (empty($apiKey)) {
+            return ['success' => false, 'error' => 'Gemini API key not configured'];
+        }
+
+        $apiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image:generateContent";
+
+        // Create a compelling prompt for image generation
+        $content = $title;
+        if (!empty($description)) {
+            // Take first 200 characters of description to avoid too long prompts
+            $shortDescription = Str::limit($description, 200, '');
+            $content .= '. ' . $shortDescription;
+        }
+
+        $prompt = "Create a professional, high-quality blog post banner image for the following content. The image should be visually appealing, modern, and suitable for a blog article. Aspect ratio should be 16:9 (640x350). Content: {$content}";
+
+        try {
+            $payload = [
+                'contents' => [
+                    [
+                        'parts' => [
+                            ['text' => $prompt]
+                        ]
+                    ]
+                ],
+                'generationConfig' => [
+                    'temperature' => 0.7,
+                    'topP' => 0.8,
+                    'topK' => 40,
+                    'candidateCount' => 1,
+                ]
+            ];
+
+            $response = Http::timeout($timeout)
+                ->withHeaders([
+                    'x-goog-api-key' => $apiKey,
+                    'Content-Type' => 'application/json'
+                ])
+                ->post($apiUrl, $payload);
+
+            if ($response->failed()) {
+                return [
+                    'success' => false,
+                    'error' => 'API request failed: ' . $response->status() . ' - ' . $response->body()
+                ];
+            }
+
+            $responseData = $response->json();
+
+            // Extract the base64 image data
+            $imageData = data_get($responseData, 'candidates.0.content.parts.0.inlineData.data');
+
+            if (empty($imageData)) {
+                return [
+                    'success' => false,
+                    'error' => 'No image data returned from API'
+                ];
+            }
+
+            return [
+                'success' => true,
+                'image_data' => $imageData
+            ];
+
+        } catch (\Throwable $e) {
+            report($e);
+            return [
+                'success' => false,
+                'error' => 'Image generation failed: ' . $e->getMessage()
+            ];
+        }
+    }
+
     protected function heuristicFallback(string $content): array
     {
         $plain = strip_tags($content);
